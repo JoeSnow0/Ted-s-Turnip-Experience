@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectBehaviour : MonoBehaviour
+public class ButtonController : MonoBehaviour
 {
-    //Components
-    
+    string mText;
+    Sprite mSprite;
 }

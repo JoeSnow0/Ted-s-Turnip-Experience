@@ -1,26 +1,101 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
+    [Header("Scene References")]
+    PlayerController mPlayer;
+    [SerializeField] Canvas mCanvas;
+    [SerializeField] HorizontalLayoutGroup mButtonHolder;
+    [SerializeField] public Transform mInteractablesHolder;
+    [SerializeField] Text mVictoryText;
     [Header("Spawn and Goal points")]
     [SerializeField] Transform mSpawn;
     [SerializeField] GoalCheck mGoal;
+    [Header("Prefabs")]
     [SerializeField] PlayerController mPlayerPrefab;
-    [SerializeField] Canvas mCanvas;
-    PlayerController mPlayer;
+    [SerializeField] ButtonSettings mButtonPrefab;
+    [SerializeField] public Interactable[] ListOfInteractablePrefabs;
+    [Header("Lists")]
+    [SerializeField] List<Interactable> ListOfInteractablesInScene = new List<Interactable>();
+    [SerializeField] int[] ListOfAmounts;
+    [SerializeField] Sprite[] ListOfSprites;
+    
     private void Start()
     {
-        SpawnPlayer();
+        initializeScene();
     }
-    void SpawnPlayer()
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            ResetAttempt();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            mPlayer.PlayMovement();
+        }
+        CheckIfPlayerAtGoal();
+    }
+    void initializeScene()
+    {
+        SpawnPlayer();
+        CreateButtons();
+        
+    }
+    private void SpawnPlayer()
     {
         mPlayer = Instantiate(mPlayerPrefab, mSpawn);
+        mPlayer.InitializeObject();
     }
-
-    void DisplayText(bool displayIt)
+    public void SpawnInteractable(Interactable prefab)
     {
+        Interactable newInteractable = Instantiate(prefab, this.transform);
+        newInteractable.Initialize();
+        AddNewToList(newInteractable);
         
+    }
+    public void AddNewToList(Interactable newInteractable)
+    {
+        if (!ListOfInteractablesInScene.Contains(newInteractable))
+        {
+            ListOfInteractablesInScene.Add(newInteractable);
+        }
+    }
+    public void RemoveFromList(Interactable newInteractable)
+    {
+        if (ListOfInteractablesInScene.Contains(newInteractable))
+        {
+            ListOfInteractablesInScene.Remove(newInteractable);
+        }
+    }
+    private void ResetAttempt()
+    {
+        mPlayer.Reset(mSpawn.position);
+    }
+    private void StartAttempt()
+    {
+        mPlayer.PlayMovement();
+    }
+    private void CheckIfPlayerAtGoal()
+    {
+        if(mGoal.IsPlayerInGoal())
+        {
+            mVictoryText.gameObject.SetActive(true);
+        }
+        else
+        {
+            mVictoryText.gameObject.SetActive(false);
+        }
+    }
+    protected void CreateButtons()
+    {
+        for (int i = 0; i < ListOfInteractablePrefabs.Length; i++)
+        {
+            ButtonSettings newButton = Instantiate(mButtonPrefab, mButtonHolder.transform);
+            newButton.InitializeButton(this, ListOfAmounts[i], ListOfSprites[i], ListOfInteractablePrefabs[i]);
+        }
     }
 }
