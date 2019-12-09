@@ -9,8 +9,9 @@ public class GameController : MonoBehaviour
     PlayerController mPlayer;
     [SerializeField] Canvas mCanvas;
     [SerializeField] HorizontalLayoutGroup mButtonHolder;
-    [SerializeField] public Transform mInteractablesHolder;
+    [SerializeField] Transform InteractablesHolder;
     [SerializeField] Text mVictoryText;
+    [SerializeField] public Mouse mMouse;
     [Header("Spawn and Goal points")]
     [SerializeField] Transform mSpawn;
     [SerializeField] GoalCheck mGoal;
@@ -41,6 +42,7 @@ public class GameController : MonoBehaviour
     }
     void initializeScene()
     {
+        mMouse = GetComponent<Mouse>();
         SpawnPlayer();
         CreateButtons();
         
@@ -52,8 +54,8 @@ public class GameController : MonoBehaviour
     }
     public void SpawnInteractable(Interactable prefab)
     {
-        Interactable newInteractable = Instantiate(prefab, this.transform);
-        newInteractable.Initialize();
+        Interactable newInteractable = Instantiate(prefab, InteractablesHolder);
+        newInteractable.Initialize(this);
         AddNewToList(newInteractable);
         
     }
