@@ -10,11 +10,6 @@ public class Interactable : MonoBehaviour
     protected Rigidbody2D mRigidbody;
     protected Collider2D mCollider;
     protected SpriteRenderer mRenderer;
-
-
-    //Values
-    string mName;
-    Sprite mSprite;
     
     private void Update()
     {
@@ -35,5 +30,9 @@ public class Interactable : MonoBehaviour
     {
         mGameController.mMouse.SetInteractable(this);
         print("mouse overlapping " + gameObject);
+    }
+    private void OnMouseExit()
+    {
+        mGameController.mMouse.SetInteractable(null);
     }
 }

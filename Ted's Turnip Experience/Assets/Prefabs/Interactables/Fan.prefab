@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56d79c5390473c04cb73980802e594ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mPushPower: 5
+  mPushPower: 10
   PushDelay: 0
   pushMode: 0
   isForceRelative: 0

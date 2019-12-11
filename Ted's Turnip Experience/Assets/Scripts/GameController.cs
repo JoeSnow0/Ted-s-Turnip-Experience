@@ -24,6 +24,7 @@ public class GameController : MonoBehaviour
     [SerializeField] int[] ListOfAmounts;
     [SerializeField] Sprite[] ListOfSprites;
     
+    
     private void Start()
     {
         initializeScene();
@@ -36,7 +37,7 @@ public class GameController : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            mPlayer.PlayMovement();
+            StartAttempt();
         }
         CheckIfPlayerAtGoal();
     }
@@ -75,7 +76,7 @@ public class GameController : MonoBehaviour
     }
     private void ResetAttempt()
     {
-        mPlayer.Reset(mSpawn.position);
+        mPlayer.Reset(mSpawn);
     }
     private void StartAttempt()
     {

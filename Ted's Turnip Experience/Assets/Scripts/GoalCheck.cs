@@ -7,18 +7,22 @@ public class GoalCheck : MonoBehaviour
     bool mPlayerInGoal = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        mPlayerInGoal = true;
+        SetPlayerInGoal(true);
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        mPlayerInGoal = true;
+        SetPlayerInGoal(true);
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        mPlayerInGoal = false;
+        SetPlayerInGoal(false);
     }
     public bool IsPlayerInGoal()
     {
         return mPlayerInGoal;
+    }
+    private void SetPlayerInGoal(bool isPlayerInGoal)
+    {
+        mPlayerInGoal = isPlayerInGoal;
     }
 }

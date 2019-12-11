@@ -25,17 +25,18 @@ public class Object : MonoBehaviour
         mRigidbody = GetComponent<Rigidbody2D>();
         mRigidbody.mass = mWeight;
     }
-    protected void SetPosition(Vector2 position)
+    protected void SetPosition(Transform newTransform)
     {
-        transform.position = position;
+        transform.position = newTransform.position;
+        transform.rotation = newTransform.rotation;
     }
     protected void SetVelocity(Vector3 velocity)
     {
         mRigidbody.velocity = velocity;
     }
-    public void Reset(Vector2 position)
+    public void Reset(Transform newTransform)
     {
-        SetPosition(position);
+        SetPosition(newTransform);
         SetVelocity(Vector3.zero);
         PauseMovement();
     }

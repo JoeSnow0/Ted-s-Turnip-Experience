@@ -6,6 +6,8 @@ public class Mouse : MonoBehaviour
 {
     GameController mGameController;
     [SerializeField] Interactable mHeldInteractable;
+    [Tooltip("Set the depth of the play area, to keep the interactables visible")]
+    [SerializeField] int playAreaDepth = 0;
 
     private void Start()
     {
@@ -32,7 +34,7 @@ public class Mouse : MonoBehaviour
         if (mHeldInteractable != null)
         {
             Vector3 newPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            newPos.z = 0;
+            newPos.z = playAreaDepth;
             mHeldInteractable.transform.position = newPos;
         }
     }
