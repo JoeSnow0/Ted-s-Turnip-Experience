@@ -46,6 +46,6 @@ public class Object : MonoBehaviour
     }
     public void PlayMovement()
     {
-        mRigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
+        mRigidbody.constraints = RigidbodyConstraints2D.None;
     }
 }

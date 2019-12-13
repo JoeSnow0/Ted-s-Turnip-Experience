@@ -7,9 +7,9 @@ public class Pusher : Interactable
     
     //Values
     [Header("Pushing Values")]
-    [Range(0, 100)]
+    [Range(0, 200)]
     [SerializeField] protected float mPushPower = 5f;
-    [Tooltip("Under construction")]
+    [Tooltip("Delay before push in seconds")]
     [Range(0, 20)]
     [SerializeField] protected float PushDelay = 0f;
     [SerializeField] protected ForceMode2D pushMode = ForceMode2D.Force;
@@ -17,7 +17,10 @@ public class Pusher : Interactable
     protected Vector2 mForce;
     [Header("Feedback")]
     [SerializeField] List<Rigidbody2D> BodiesOnPlatform = new List<Rigidbody2D>();
-    
+
+
+    [SerializeField] private bool mIsCollisionSafe = true;
+
     private void CalculateForce(Rigidbody2D bodyToPush)
     {
         mForce = mPushPower * mDirection;
@@ -37,6 +40,13 @@ public class Pusher : Interactable
     {
         RemoveBody(collision.attachedRigidbody);
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (!mIsCollisionSafe && mGameController.GetIsPlaying())
+        {
+            mGameController.ResetAttempt();
+        }
+    }
     void Pushing()
     {
         if (CheckIfBodyOnPusher())
@@ -51,11 +61,6 @@ public class Pusher : Interactable
                 StartCoroutine(DelayedPushObject());
             }
 
-        }
-        else if (!CheckIfBodyOnPusher())
-        {
-            print("stopped Coroutine");
-            StopCoroutine(DelayedPushObject());
         }
     }
     private void PushObjects()

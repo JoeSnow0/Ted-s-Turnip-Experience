@@ -28,11 +28,21 @@ public class Interactable : MonoBehaviour
     }
     private void OnMouseEnter()
     {
-        mGameController.mMouse.SetInteractable(this);
-        print("mouse overlapping " + gameObject);
+        if(!mGameController.GetIsPlaying())
+        {
+            mGameController.mMouse.SetInteractable(this);
+        }
+    }
+    private void OnMouseOver()
+    {
+        if (mGameController.GetIsPlaying())
+        {
+            mGameController.mMouse.SetInteractable(null);
+        }
     }
     private void OnMouseExit()
     {
         mGameController.mMouse.SetInteractable(null);
     }
+    
 }

@@ -6,23 +6,30 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour
 {
     [Header("Scene References")]
-    PlayerController mPlayer;
-    [SerializeField] Canvas mCanvas;
-    [SerializeField] HorizontalLayoutGroup mButtonHolder;
-    [SerializeField] Transform InteractablesHolder;
-    [SerializeField] Text mVictoryText;
+    private PlayerController mPlayer;
+    [SerializeField] private Canvas mCanvas;
+    [SerializeField] private HorizontalLayoutGroup mButtonHolder;
+    [SerializeField] private Transform InteractablesHolder;
+    [SerializeField] private Text mVictoryText;
     [SerializeField] public Mouse mMouse;
+
     [Header("Spawn and Goal points")]
-    [SerializeField] Transform mSpawn;
-    [SerializeField] GoalCheck mGoal;
+    [SerializeField] private Transform mSpawn;
+    [SerializeField] private GoalCheck mGoal;
+
     [Header("Prefabs")]
-    [SerializeField] PlayerController mPlayerPrefab;
-    [SerializeField] ButtonSettings mButtonPrefab;
+    [SerializeField] private PlayerController mPlayerPrefab;
+    [SerializeField] private ButtonSettings mButtonPrefab;
     [SerializeField] public Interactable[] ListOfInteractablePrefabs;
+
     [Header("Lists")]
-    [SerializeField] List<Interactable> ListOfInteractablesInScene = new List<Interactable>();
-    [SerializeField] int[] ListOfAmounts;
-    [SerializeField] Sprite[] ListOfSprites;
+    [SerializeField] private List<Interactable> ListOfInteractablesInScene = new List<Interactable>();
+    [SerializeField] private int[] ListOfAmounts;
+    [SerializeField] private Sprite[] ListOfSprites;
+    [SerializeField] private KeyCode ResetButton;
+    [SerializeField] private KeyCode StartButton;
+
+    private bool isPlaying;
     
     
     private void Start()
@@ -31,12 +38,14 @@ public class GameController : MonoBehaviour
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(ResetButton))
         {
+            SetIsPlaying(false);
             ResetAttempt();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(StartButton))
         {
+            SetIsPlaying(true);
             StartAttempt();
         }
         CheckIfPlayerAtGoal();
@@ -74,12 +83,14 @@ public class GameController : MonoBehaviour
             ListOfInteractablesInScene.Remove(newInteractable);
         }
     }
-    private void ResetAttempt()
+    public void ResetAttempt()
     {
+        SetIsPlaying(false);
         mPlayer.Reset(mSpawn);
     }
     private void StartAttempt()
     {
+        SetIsPlaying(true);
         mPlayer.PlayMovement();
     }
     private void CheckIfPlayerAtGoal()
@@ -100,5 +111,18 @@ public class GameController : MonoBehaviour
             ButtonSettings newButton = Instantiate(mButtonPrefab, mButtonHolder.transform);
             newButton.InitializeButton(this, ListOfAmounts[i], ListOfSprites[i], ListOfInteractablePrefabs[i]);
         }
+    }
+    public void SetIsPlaying(bool newState)
+    {
+        isPlaying = newState;
+    }
+    public bool GetIsPlaying()
+    {
+        return isPlaying;
+    }
+    public void NextLevel()
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
+        //Application.Quit();
     }
 }

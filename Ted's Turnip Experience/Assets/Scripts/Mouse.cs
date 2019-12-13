@@ -18,7 +18,7 @@ public class Mouse : MonoBehaviour
         
         if(Input.GetMouseButtonDown(0))
         {
-            GetInteractable();
+            //GetInteractable();
         }
         if (Input.GetMouseButton(0))
         {
