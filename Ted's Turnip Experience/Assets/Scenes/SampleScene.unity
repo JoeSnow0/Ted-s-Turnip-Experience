@@ -420,18 +420,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 909736146}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &865936365 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7192140962879363611, guid: e38dac5710268554e84d782140058220,
-    type: 3}
-  m_PrefabInstance: {fileID: 7574627540723014094}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7f73776536cc7d2429fdc4aed8ea7bff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &909736146
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1140,36 +1128,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1020561920069739852, guid: e38dac5710268554e84d782140058220,
-        type: 3}
-      propertyPath: ListOfAmounts.Array.data[0]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1020561920069739852, guid: e38dac5710268554e84d782140058220,
-        type: 3}
-      propertyPath: ListOfAmounts.Array.data[1]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1020561920069739852, guid: e38dac5710268554e84d782140058220,
-        type: 3}
-      propertyPath: ListOfAmounts.Array.data[2]
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1020561920069739852, guid: e38dac5710268554e84d782140058220,
-        type: 3}
-      propertyPath: mMouse
-      value: 
-      objectReference: {fileID: 865936365}
-    - target: {fileID: 3800780931818074036, guid: e38dac5710268554e84d782140058220,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.316
-      objectReference: {fileID: 0}
-    - target: {fileID: 3800780931818074036, guid: e38dac5710268554e84d782140058220,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 7.91
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e38dac5710268554e84d782140058220, type: 3}

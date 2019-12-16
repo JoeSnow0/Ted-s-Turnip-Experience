@@ -10,6 +10,7 @@ public class Interactable : MonoBehaviour
     protected Rigidbody2D mRigidbody;
     protected Collider2D mCollider;
     protected SpriteRenderer mRenderer;
+    private Mouse mMouse;
     
     private void Update()
     {
@@ -26,6 +27,10 @@ public class Interactable : MonoBehaviour
     {
         mTransform.position = position;
     }
+    public Collider2D GetCollider()
+    {
+        return mCollider;
+    }
     private void OnMouseEnter()
     {
         if(!mGameController.GetIsPlaying())
@@ -37,7 +42,7 @@ public class Interactable : MonoBehaviour
     {
         if (mGameController.GetIsPlaying())
         {
-            mGameController.mMouse.SetInteractable(null);
+            mMouse.SetInteractable(null);
         }
     }
     private void OnMouseExit()

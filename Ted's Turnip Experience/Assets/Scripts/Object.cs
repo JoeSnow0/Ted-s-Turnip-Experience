@@ -11,33 +11,38 @@ public class Object : MonoBehaviour
     [Header("Sprite")]
     [SerializeField] protected Sprite mSprite;
     [SerializeField] protected Rigidbody2D mRigidbody;
+    //Reset
+    [Header("Reset")]
+    [SerializeField] Transform mResetTransform;
+    [SerializeField] Vector3 mResetVelocity = Vector3.zero;
 
     virtual protected void Start()
     {
-        InitializeObject();
     }
     virtual protected void Update()
     {
         
     }
-    public void InitializeObject()
+    public void InitializeObject(Transform resetTransform)
     {
         mRigidbody = GetComponent<Rigidbody2D>();
         mRigidbody.mass = mWeight;
+        mResetTransform = resetTransform;
     }
-    protected void SetPosition(Transform newTransform)
+    protected void SetTransform(Transform newTransform)
     {
         transform.position = newTransform.position;
         transform.rotation = newTransform.rotation;
+        transform.localScale = newTransform.localScale;
     }
     protected void SetVelocity(Vector3 velocity)
     {
         mRigidbody.velocity = velocity;
     }
-    public void Reset(Transform newTransform)
+    public void Reset()
     {
-        SetPosition(newTransform);
-        SetVelocity(Vector3.zero);
+        SetTransform(mResetTransform);
+        SetVelocity(mResetVelocity);
         PauseMovement();
     }
     public void PauseMovement()

@@ -14,12 +14,11 @@ public class Pusher : Interactable
     [SerializeField] protected float PushDelay = 0f;
     [SerializeField] protected ForceMode2D pushMode = ForceMode2D.Force;
     [SerializeField] protected Vector2 mDirection;
+    [SerializeField] private bool mIsCollisionSafe = true;
     protected Vector2 mForce;
     [Header("Feedback")]
-    [SerializeField] List<Rigidbody2D> BodiesOnPlatform = new List<Rigidbody2D>();
+    [SerializeField] private List<Rigidbody2D> BodiesOnPlatform = new List<Rigidbody2D>();
 
-
-    [SerializeField] private bool mIsCollisionSafe = true;
 
     private void CalculateForce(Rigidbody2D bodyToPush)
     {
@@ -33,21 +32,18 @@ public class Pusher : Interactable
     {
         AddBody(collision.attachedRigidbody);
     }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-    }
     private void OnTriggerExit2D(Collider2D collision)
     {
         RemoveBody(collision.attachedRigidbody);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (!mIsCollisionSafe && mGameController.GetIsPlaying())
+        if (!mIsCollisionSafe && mGameController.GetIsPlaying() && collision.gameObject == mGameController.GetPlayer().gameObject)
         {
             mGameController.ResetAttempt();
         }
     }
-    void Pushing()
+    private void Pushing()
     {
         if (CheckIfBodyOnPusher())
         {
@@ -57,7 +53,7 @@ public class Pusher : Interactable
             }
             else
             {
-                print("started Coroutine");
+                //print("started Coroutine");
                 StartCoroutine(DelayedPushObject());
             }
 
@@ -80,21 +76,21 @@ public class Pusher : Interactable
         yield return new WaitForSeconds(PushDelay);
         PushObjects();
     }
-    void AddBody(Rigidbody2D newBody)
+    private void AddBody(Rigidbody2D newBody)
     {
         if (!BodiesOnPlatform.Contains(newBody))
         {
             BodiesOnPlatform.Add(newBody);
         }
     }
-    void RemoveBody(Rigidbody2D oldRigidbody)
+    private void RemoveBody(Rigidbody2D oldRigidbody)
     {
         if(BodiesOnPlatform.Contains(oldRigidbody))
         {
             BodiesOnPlatform.Remove(oldRigidbody);
         }
     }
-    bool CheckIfBodyOnPusher()
+    private bool CheckIfBodyOnPusher()
     {
         if (BodiesOnPlatform.Count > 0)
         {

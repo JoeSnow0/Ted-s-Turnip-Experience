@@ -5,20 +5,23 @@ using UnityEngine;
 public class Mouse : MonoBehaviour
 {
     GameController mGameController;
-    [SerializeField] Interactable mHeldInteractable;
     [Tooltip("Set the depth of the play area, to keep the interactables visible")]
     [SerializeField] int playAreaDepth = 0;
-
+    [Header("")]
+    [SerializeField] Interactable mHeldInteractable;
     private void Start()
     {
         mGameController = FindObjectOfType<GameController>();
     }
     private void Update()
     {
-        
-        if(Input.GetMouseButtonDown(0))
+        GetMouseInput();
+    }
+    private void GetMouseInput()
+    {
+        if (Input.GetMouseButtonDown(0))
         {
-            //GetInteractable();
+            GetInteractable();
         }
         if (Input.GetMouseButton(0))
         {
@@ -38,11 +41,11 @@ public class Mouse : MonoBehaviour
             mHeldInteractable.transform.position = newPos;
         }
     }
-    public void GrabInteractable(Interactable interactable)
+    public void GrabInteractable()
     {
         if(HandIsEmpty())
         {
-            mHeldInteractable = interactable;
+            mHeldInteractable = mGameController.FindInteractableInListByPosition(Input.mousePosition);
         }
     }
     public void DropInteractable()
@@ -69,6 +72,6 @@ public class Mouse : MonoBehaviour
     }
     public void SetInteractable(Interactable newInteractable)
     {
-        mGameController.mMouse.mHeldInteractable = newInteractable;
+        mHeldInteractable = newInteractable;
     }
 }

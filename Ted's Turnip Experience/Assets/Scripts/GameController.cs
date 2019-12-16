@@ -9,7 +9,7 @@ public class GameController : MonoBehaviour
     private PlayerController mPlayer;
     [SerializeField] private Canvas mCanvas;
     [SerializeField] private HorizontalLayoutGroup mButtonHolder;
-    [SerializeField] private Transform InteractablesHolder;
+
     [SerializeField] private Text mVictoryText;
     [SerializeField] public Mouse mMouse;
 
@@ -20,55 +20,20 @@ public class GameController : MonoBehaviour
     [Header("Prefabs")]
     [SerializeField] private PlayerController mPlayerPrefab;
     [SerializeField] private ButtonSettings mButtonPrefab;
-    [SerializeField] public Interactable[] ListOfInteractablePrefabs;
 
-    [Header("Lists")]
-    [SerializeField] private List<Interactable> ListOfInteractablesInScene = new List<Interactable>();
-    [SerializeField] private int[] ListOfAmounts;
-    [SerializeField] private Sprite[] ListOfSprites;
+    [Header("KEEP THESE THE SAME SIZE")]
+    [SerializeField] public Interactable[] ListOfInteractablePrefabs;
+    [SerializeField] public Sprite[] ListOfInteractableSprites;
+    [SerializeField] public int[] ListOfInteractableAmounts;
+
+    [Header("Buttons")]
     [SerializeField] private KeyCode ResetButton;
     [SerializeField] private KeyCode StartButton;
-
     private bool isPlaying;
-    
-    
-    private void Start()
-    {
-        initializeScene();
-    }
-    private void Update()
-    {
-        if (Input.GetKeyDown(ResetButton))
-        {
-            SetIsPlaying(false);
-            ResetAttempt();
-        }
-        if (Input.GetKeyDown(StartButton))
-        {
-            SetIsPlaying(true);
-            StartAttempt();
-        }
-        CheckIfPlayerAtGoal();
-    }
-    void initializeScene()
-    {
-        mMouse = GetComponent<Mouse>();
-        SpawnPlayer();
-        CreateButtons();
-        
-    }
-    private void SpawnPlayer()
-    {
-        mPlayer = Instantiate(mPlayerPrefab, mSpawn);
-        mPlayer.InitializeObject();
-    }
-    public void SpawnInteractable(Interactable prefab)
-    {
-        Interactable newInteractable = Instantiate(prefab, InteractablesHolder);
-        newInteractable.Initialize(this);
-        AddNewToList(newInteractable);
-        
-    }
+
+    [Header("Feedback")]
+    [SerializeField] private List<Interactable> ListOfInteractablesInScene = new List<Interactable>();
+    [SerializeField] private Transform InteractablesHolder;
     public void AddNewToList(Interactable newInteractable)
     {
         if (!ListOfInteractablesInScene.Contains(newInteractable))
@@ -83,16 +48,83 @@ public class GameController : MonoBehaviour
             ListOfInteractablesInScene.Remove(newInteractable);
         }
     }
+    public Interactable FindInteractableInListByPosition(Vector2 position)
+    {
+        for(int i = 0; i > ListOfInteractablesInScene.Count; i++)
+        {
+            if(ListOfInteractablesInScene[i].GetCollider().OverlapPoint(position))
+            {
+                return ListOfInteractablesInScene[i];
+            }
+        }
+        return null;
+    }
+    public void ClearInteractableList()
+    {
+        for (int i = ListOfInteractablesInScene.Count; i > 0; i--)
+        {
+            Interactable oldInteractable = ListOfInteractablesInScene[i];
+            ListOfInteractablesInScene.Remove(oldInteractable);
+            DestroyInteractable(oldInteractable);
+        }
+    }
+    private void DestroyInteractable(Interactable interactable)
+    {
+        Destroy(interactable);
+    }
+    public void SpawnInteractable(Interactable prefab)
+    {
+        Interactable newInteractable = Instantiate(prefab, InteractablesHolder);
+        newInteractable.Initialize(this);
+        AddNewToList(newInteractable);
+
+    }
+    
+    private void Start()
+    {
+        initializeScene();
+
+    }
+    void initializeScene()
+    {
+        SpawnPlayer();
+        CreateButtons();
+
+    }
+    private void SpawnPlayer()
+    {
+        mPlayer = Instantiate(mPlayerPrefab, mSpawn);
+        mPlayer.InitializeObject(mSpawn);
+    }
+
+
     public void ResetAttempt()
     {
         SetIsPlaying(false);
-        mPlayer.Reset(mSpawn);
+        mPlayer.Reset();
     }
     private void StartAttempt()
     {
         SetIsPlaying(true);
         mPlayer.PlayMovement();
     }
+    
+    private void Update()
+    {
+        if (Input.GetKeyDown(ResetButton))
+        {
+            SetIsPlaying(false);
+            ResetAttempt();
+        }
+        if (Input.GetKeyDown(StartButton))
+        {
+            SetIsPlaying(true);
+            StartAttempt();
+        }
+        CheckIfPlayerAtGoal();
+    }
+    
+    
     private void CheckIfPlayerAtGoal()
     {
         if(mGoal.IsPlayerInGoal())
@@ -109,7 +141,7 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < ListOfInteractablePrefabs.Length; i++)
         {
             ButtonSettings newButton = Instantiate(mButtonPrefab, mButtonHolder.transform);
-            newButton.InitializeButton(this, ListOfAmounts[i], ListOfSprites[i], ListOfInteractablePrefabs[i]);
+            newButton.InitializeButton(this, ListOfInteractableAmounts[i], ListOfInteractableSprites[i], ListOfInteractablePrefabs[i]);
         }
     }
     public void SetIsPlaying(bool newState)
@@ -124,5 +156,9 @@ public class GameController : MonoBehaviour
     {
         UnityEditor.EditorApplication.isPlaying = false;
         //Application.Quit();
+    }
+    public PlayerController GetPlayer()
+    {
+        return mPlayer;
     }
 }

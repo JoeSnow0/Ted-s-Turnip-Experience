@@ -247,8 +247,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 10}
-  m_SizeDelta: {x: 300, y: 20}
+  m_AnchoredPosition: {x: 0, y: 16}
+  m_SizeDelta: {x: 320, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4322897735035173118
 MonoBehaviour:
@@ -267,12 +267,12 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 1
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
 --- !u!1 &1492242322601190931
@@ -586,7 +586,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mCanvas: {fileID: 7317313950329799307}
   mButtonHolder: {fileID: 4322897735035173118}
-  InteractablesHolder: {fileID: 5057762284550591033}
   mVictoryText: {fileID: 656255539460544446}
   mMouse: {fileID: 7192140962879363611}
   mSpawn: {fileID: 3856804861764725295}
@@ -596,20 +595,20 @@ MonoBehaviour:
   mButtonPrefab: {fileID: 8438415335181958104, guid: b5ce71bf8e827484a8df49984432503b,
     type: 3}
   ListOfInteractablePrefabs:
-  - {fileID: 1669700672, guid: b5902f18f46f79e409729290de3dc22b, type: 3}
-  - {fileID: 3038288116274619910, guid: a384f824d447b1c45989d6f05982e9cf, type: 3}
   - {fileID: 7507414911643190131, guid: aa47b207921f2924d86d7e8e96ea41af, type: 3}
+  - {fileID: 3038288116274619910, guid: a384f824d447b1c45989d6f05982e9cf, type: 3}
   - {fileID: 1001096185332319679, guid: 9e5d7a2ddec11304c80178f64d7da668, type: 3}
-  ListOfInteractablesInScene: []
-  ListOfAmounts: 05000000050000000500000005000000
-  ListOfSprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1669700672, guid: b5902f18f46f79e409729290de3dc22b, type: 3}
+  ListOfInteractableSprites:
+  - {fileID: 21300000, guid: 670a3fb2cf2cbb54eb9765f7b170cc1a, type: 3}
+  - {fileID: 21300000, guid: 220f7fa8b8256854d95f77d6611335ae, type: 3}
+  - {fileID: 21300000, guid: 1106ca04b455ca6438ec34317256fc60, type: 3}
+  - {fileID: 21300000, guid: 5abaea193a572794490d280d6c8e681d, type: 3}
+  ListOfInteractableAmounts: 02000000030000000400000005000000
   ResetButton: 50
   StartButton: 49
+  ListOfInteractablesInScene: []
+  InteractablesHolder: {fileID: 0}
 --- !u!114 &2165412358289189273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -808,7 +807,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5900457814026933519}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.82, y: -3.23, z: 0}
+  m_LocalPosition: {x: 7.91, y: -1.316, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 348370028311173353}

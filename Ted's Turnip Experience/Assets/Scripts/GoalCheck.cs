@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class GoalCheck : MonoBehaviour
 {
-    bool mPlayerInGoal = false;
+    [Header("Feedback")]
+    [SerializeField] private bool mPlayerInGoal = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         SetPlayerInGoal(true);
