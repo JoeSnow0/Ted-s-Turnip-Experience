@@ -12,6 +12,7 @@ public class ButtonSettings : MonoBehaviour
     private Text mButtonText;
     private Interactable InteractablePrefab;
     [Header("Feedback")]
+    [Tooltip("Keep track of remaining uses here")]
     [SerializeField] private int mMaxUses;
     [SerializeField] private int mCurrentUsesLeft;
     [SerializeField] private const int mMinUses = 0;

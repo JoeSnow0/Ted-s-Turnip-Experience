@@ -584,7 +584,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 957e9840f3e9b0f479b2303c5b5cd927, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mCanvas: {fileID: 7317313950329799307}
   mButtonHolder: {fileID: 4322897735035173118}
   mVictoryText: {fileID: 656255539460544446}
   mMouse: {fileID: 7192140962879363611}
@@ -645,8 +644,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f73776536cc7d2429fdc4aed8ea7bff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mHeldInteractable: {fileID: 0}
   playAreaDepth: 0
+  mHeldInteractable: {fileID: 0}
 --- !u!1 &5742491464027902815
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,7 +767,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1020561920069739852}
-        m_MethodName: NextLevel
+        m_MethodName: CloseEditor
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -900,6 +899,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acd092738cd004f4fbb92161ed008c64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mPlayerInGoal: 0
 --- !u!1 &5978708035909369573
 GameObject:
   m_ObjectHideFlags: 0

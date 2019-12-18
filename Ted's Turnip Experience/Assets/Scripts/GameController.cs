@@ -7,7 +7,6 @@ public class GameController : MonoBehaviour
 {
     [Header("Scene References")]
     private PlayerController mPlayer;
-    [SerializeField] private Canvas mCanvas;
     [SerializeField] private HorizontalLayoutGroup mButtonHolder;
 
     [SerializeField] private Text mVictoryText;
@@ -34,6 +33,18 @@ public class GameController : MonoBehaviour
     [Header("Feedback")]
     [SerializeField] private List<Interactable> ListOfInteractablesInScene = new List<Interactable>();
     [SerializeField] private Transform InteractablesHolder;
+
+    private void Start()
+    {
+        initializeScene();
+
+    }
+    void initializeScene()
+    {
+        SpawnPlayer();
+        CreateButtons();
+
+    }
     public void AddNewToList(Interactable newInteractable)
     {
         if (!ListOfInteractablesInScene.Contains(newInteractable))
@@ -79,25 +90,11 @@ public class GameController : MonoBehaviour
         AddNewToList(newInteractable);
 
     }
-    
-    private void Start()
-    {
-        initializeScene();
-
-    }
-    void initializeScene()
-    {
-        SpawnPlayer();
-        CreateButtons();
-
-    }
     private void SpawnPlayer()
     {
         mPlayer = Instantiate(mPlayerPrefab, mSpawn);
         mPlayer.InitializeObject(mSpawn);
     }
-
-
     public void ResetAttempt()
     {
         SetIsPlaying(false);
@@ -108,8 +105,12 @@ public class GameController : MonoBehaviour
         SetIsPlaying(true);
         mPlayer.PlayMovement();
     }
-    
     private void Update()
+    {
+        CheckInput();
+        CheckIfPlayerAtGoal();
+    }
+    private void CheckInput()
     {
         if (Input.GetKeyDown(ResetButton))
         {
@@ -121,10 +122,7 @@ public class GameController : MonoBehaviour
             SetIsPlaying(true);
             StartAttempt();
         }
-        CheckIfPlayerAtGoal();
     }
-    
-    
     private void CheckIfPlayerAtGoal()
     {
         if(mGoal.IsPlayerInGoal())
@@ -152,13 +150,13 @@ public class GameController : MonoBehaviour
     {
         return isPlaying;
     }
-    public void NextLevel()
-    {
-        UnityEditor.EditorApplication.isPlaying = false;
-        //Application.Quit();
-    }
     public PlayerController GetPlayer()
     {
         return mPlayer;
+    }
+    public void CloseEditor()
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
+        //Application.Quit();
     }
 }

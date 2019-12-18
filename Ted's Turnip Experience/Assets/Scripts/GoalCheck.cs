@@ -5,6 +5,7 @@ using UnityEngine;
 public class GoalCheck : MonoBehaviour
 {
     [Header("Feedback")]
+    [Tooltip("Indicates if player is within the bounds of the goal square")]
     [SerializeField] private bool mPlayerInGoal = false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
